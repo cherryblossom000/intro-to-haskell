@@ -182,6 +182,27 @@
 	]
 }
 
+== Why learn functional programming?
+#fix-font-size
+
+#[#set text(0.9em)
+- Easier to compose code together using functions as the main building block of programs
+- Often leads to less code
+	- Higher-order functions: `map`, `filter`, etc.
+- Less error-prone code & bugs
+	- `Maybe`/`Option` instead of null references
+	- `for`/`while` loop bugs
+- Easier to reason about code
+	- Reduce mutable variables/state & side effects
+- Helps you become a better programmer!
+]
+
+== Why learn functional programming?
+
+- Web development (e.g. React)
+- Most modern programming languages have support FP or have FP features: JavaScript/TypeScript, Python, Rust, C++, Kotlin, even Java, ...
+- FP languages: Haskell, OCaml, Scala, Elixir, F\#, Elm, Clojure(Script) ...
+
 == Hello, World!
 
 #align(center + horizon)[
