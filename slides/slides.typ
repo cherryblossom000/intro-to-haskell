@@ -30,11 +30,11 @@
 			- Install GHCup: `haskell.org/ghcup`
 			- Run
 				```sh
-				ghcup install stack --set
-				ghcup install hls --set
+				ghcup install stack --set 3.7.1
+				ghcup install hls --set 2.11.0.0
 				```
 				- Alternatively, use ```sh ghcup tui``` to install Stack and HLS interactively
-			- Clone #link("https://github.com/monashcoding/intro-to-haskell")[`github.com/monashcoding/intro-to-haskell`]
+			- Clone #link("https://github.com/cherryblossom000/intro-to-haskell")[`github.com/cherryblossom000/intro-to-haskell`]
 			- Run ```sh stack test``` (there will be test failures)
 		],
 		[

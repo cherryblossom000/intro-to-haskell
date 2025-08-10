@@ -1,2 +1,2 @@
-resolver: lts-20.26
+resolver: lts-23.25
 packages: [.]

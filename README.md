@@ -12,8 +12,8 @@ Fork [this CodeSandbox Devbox](https://codesandbox.io/p/devbox/mac-intro-to-hask
   - If you’re on macOS and have Homebrew, you can also do `brew install ghcup` instead to install it.
 2. Run the following commands:
   ```sh
-  ghcup install stack --set
-  ghcup install hls --set
+  ghcup install stack --set 3.7.1
+  ghcup install hls --set 2.11.0.0
   ```
   This installs Stack (the tool we use to build our Haskell code and handle all our dependencies) and HLS (Haskell language server, which you will need to get IDE support).
 
@@ -26,15 +26,19 @@ Fork [this CodeSandbox Devbox](https://codesandbox.io/p/devbox/mac-intro-to-hask
   ┌───────────────────────GHCup──────────────────────┐
   │    Tool  Version         Tags                    │
   │──────────────────────────────────────────────────│
-  │✔✔  GHCup 0.1.30.0   latest,recommended           │
+  │✔✔  GHCup 0.1.50.0   latest,recommended           │
   │──────────────────────────────────────────────────│
-  │✔✔  Stack 3.1.1      latest,recommended           │
+  │✔✔  Stack 3.7.1      latest                       │
+  │✗   Stack 3.5.1                                   │
+  │✗   Stack 3.5.1      recommended                  │
   │✗   Stack 2.15.7                                  │
   │──────────────────────────────────────────────────│
+  │✔✔  HLS   2.11.0.0   latest                       │
+  │✗   HLS   2.10.0.0   recommended                  │
   │✗   HLS   2.9.0.1    latest                       │
   │✗   HLS   2.9.0.0                                 │
   │✗   HLS   2.8.0.0                                 │
-  │✔✔  HLS   2.7.0.0    recommended                  │
+  │✗   HLS   2.7.0.0                                 │
   │✗   HLS   2.6.0.0                                 │
   │──────────────────────────────────────────────────│
   ```

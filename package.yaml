@@ -2,7 +2,7 @@ name: mac-intro-to-haskell
 version: 0.1.0.0
 license: MIT
 author: Lauren Yim
-copyright: 2023–2024 Lauren Yim
+copyright: 2023–2025 Lauren Yim
 
 dependencies:
   - base >= 4.7 && < 5
