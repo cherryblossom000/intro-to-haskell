@@ -3,13 +3,16 @@ FROM mcr.microsoft.com/devcontainers/base:debian-12 AS base
 
 ENV LANG=C.UTF-8
 
-ARG STACK_VERSION=recommended
-ARG HLS_VERSION=recommended
+ARG STACK_VERSION
+ARG HLS_VERSION
 
 ENV DEBIAN_FRONTEND=noninteractive \
     USERNAME=vscode \
     STACK_VERSION=${STACK_VERSION} \
     HLS_VERSION=${HLS_VERSION}
+
+RUN apt-get update
+RUN apt-get -y install libgmp-dev
 
 FROM base AS haskell
 
