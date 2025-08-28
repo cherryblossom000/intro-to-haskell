@@ -4,7 +4,7 @@
 
 ### Option 1: Code online using CodeSandbox
 
-Fork [this CodeSandbox Devbox](https://codesandbox.io/p/devbox/mac-intro-to-haskell-workshop-g3ynvw).
+Fork [this CodeSandbox Devbox](https://codesandbox.io/p/github/cherryblossom000/intro-to-haskell/main).
 
 ### Option 2: Install Haskell locally
 

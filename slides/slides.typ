@@ -1,9 +1,13 @@
-#import "@preview/polylux:0.3.1": themes, uncover
-#import "@local/mac-slides:1.0.0": mac-theme, title-slide, slide
+#import "@preview/touying:0.6.1": themes, uncover
+#import "./template/lib.typ": mac-theme, title-slide, slide
 
 #let side-by-side(x, y) = grid(columns: (50%, 50%), gutter: 1em, x, y)
 
-#let task(test, extra) = slide(title: [Tasks])[
+#let fix-font-size = place(top + left, [])
+
+#let task(test, extra) = [
+	== Tasks
+
 	#extra
 	- Replace all ```hs error "blah blah"```s with your own code
 	- Run #test to test
@@ -13,61 +17,61 @@
 
 #show: mac-theme
 
-#{
-	title-slide(
-		title: [Introduction to Haskell],
-		subtitle: [MAC x Learn],
-		author: [Lauren Yim],
-	)
-}
+#title-slide(
+	title: [Introduction to Haskell],
+	subtitle: [MAC x Learn],
+	author: [Lauren Yim],
+)
 
-#slide(title: [Setup])[
-	#set text(0.8em)
-	#grid(
-		columns: (3fr, 2fr),
-		[
-			=== Installing locally
-			- Install GHCup: `haskell.org/ghcup`
-			- Run
-				```sh
-				ghcup install stack --set 3.7.1
-				ghcup install hls --set 2.11.0.0
-				```
-				- Alternatively, use ```sh ghcup tui``` to install Stack and HLS interactively
-			- Clone #link("https://github.com/cherryblossom000/intro-to-haskell")[`github.com/cherryblossom000/intro-to-haskell`]
-			- Run ```sh stack test``` (there will be test failures)
-		],
-		[
-			=== Using CodeSandbox (online)
-			- Fork #link("https://codesandbox.io/p/devbox/mac-intro-to-haskell-workshop-g3ynvw")[`codesandbox.io/p/devbox/mac-intro-to-haskell-workshop-g3ynvw`]
-				- This is also linked in the GitHub repo
-			- Run ```sh stack test``` in a a terminal (there will be test failures)
-		],
-	)
+== Setup
+#fix-font-size
+
+#[#set text(0.8em)
+#grid(
+	columns: (3fr, 2fr),
+	[
+		=== Installing locally
+
+		- Install GHCup: `haskell.org/ghcup`
+		- Run
+			```sh
+			ghcup install stack --set 3.7.1
+			ghcup install hls --set 2.11.0.0
+			```
+			- Alternatively, use ```sh ghcup tui``` to install Stack and HLS interactively
+		- Clone #link("https://github.com/cherryblossom000/intro-to-haskell")[`github.com/cherryblossom000/intro-to-haskell`]
+		- Run ```sh stack test``` (there will be test failures)
+	],
+	[
+		=== Using CodeSandbox (online)
+
+		- Fork the CodeSandbox linked in the GitHub repo
+		- Run ```sh stack test``` in a a terminal (there will be test failures)
+	],
+)
 ]
 
-#slide(title: [What is Haskell?])[
-	#grid(
-		columns: 2,
-		[
-			- *General-purpose* language
-			- Enforces *pure functional programming*
-			- *Statically typed*: no more `TypeError`s
-			- *Lazy*: only computes values when needed
-		],
-		image("img/haskell.png", height: 50%, alt: "Haskell logo")
-	)
-]
+== What is Haskell?
 
-#slide(title: [What is functional programming?])[
-	- Declarative programming paradigm based on applying and composing functions
-		- _Declarative_ programming: specify what you *want* the program to do, rather than exactly *how* it should do it (imperative)
-	- Usually synonymous with '_pure_ functional programming', which also tries to minimise side effects
-	- Code can be a lot shorter and easier to read/understand
-]
+#grid(
+	columns: 2,
+	[
+		- *General-purpose* language
+		- Enforces *pure functional programming*
+		- *Statically typed*: no more `TypeError`s
+		- *Lazy*: only computes values when needed
+	],
+	image("img/haskell.png", height: 50%, alt: "Haskell logo")
+)
 
-#{
-	show raw: set text(0.65em)
+== What is functional programming?
+
+- Declarative programming paradigm based on applying and composing functions
+	- _Declarative_ programming: specify what you *want* the program to do, rather than exactly *how* it should do it (imperative)
+- Usually synonymous with '_pure_ functional programming', which also tries to minimise side effects
+- Code can be a lot shorter and easier to read/understand
+
+#{show raw: set text(0.65em)
 	let examples = (
 		(
 			([C++], [
@@ -129,8 +133,7 @@
 			],
 		),
 		(
-			([Python], [
-				#show raw: set text(0.86em)
+			([Python], [#show raw: set text(0.86em)
 				```py
 				def partition(array, low, high):
 					pivot = low
@@ -149,8 +152,7 @@
 					quicksort_aux(array, 0, len(array) - 1)
 				```
 			]),
-			[
-				#show raw: set text(0.86em)
+			[#show raw: set text(0.86em)
 				```hs
 
 				import Data.List (partition)
@@ -163,24 +165,46 @@
 			],
 		),
 	)
-	for ((lang, imperative), functional) in examples {
-		slide(
-			title: [What is functional programming?],
-			side-by-side(
-				[
-					=== Imperative (#lang)
-					#imperative
-				],
-				[
-					=== Functional (Haskell)
-					#functional
-				],
-			),
+	for ((lang, imperative), functional) in examples [
+		== What is functional programming?
+
+		#side-by-side(
+			[
+				=== Imperative (#lang)
+				#imperative
+			],
+			[
+				=== Functional (Haskell)
+				#functional
+			],
 		)
-	}
+	]
 }
 
-#slide(title: [Hello, World!], align(center + horizon)[
+== Why learn functional programming?
+#fix-font-size
+
+#[#set text(0.9em)
+- Easier to compose code together using functions as the main building block of programs
+- Often leads to less code
+	- Higher-order functions: `map`, `filter`, etc.
+- Less error-prone code & bugs
+	- `Maybe`/`Option` instead of null references
+	- `for`/`while` loop bugs
+- Easier to reason about code
+	- Reduce mutable variables/state & side effects
+- Helps you become a better programmer!
+]
+
+== Why learn functional programming?
+
+- Web development (e.g. React)
+- Most modern programming languages have support FP or have FP features: JavaScript/TypeScript, Python, Rust, C++, Kotlin, even Java, ...
+- FP languages: Haskell, OCaml, Scala, Elixir, F\#, Elm, Clojure(Script) ...
+
+== Hello, World!
+
+#align(center + horizon)[
 	```hs
 	-- Every Haskell program needs a 'main' defined
 	main :: IO ()
@@ -192,18 +216,21 @@
 	Run the program with `stack run`
 
 	// #uncover(2, strike[a monad is just a monoid in the category of endofunctors])
-])
-
-#slide(title: [Haskell Syntax])[
-	- Parentheses are used for grouping expressions together, not for calling functions
-		- Python: `function1(arg1, function2(arg2), arg3)`
-		- Haskell: `function1 arg1 (function2 arg2) arg3`
-	- Everything is an expression
-	- Run ```sh stack ghci``` to play around in a REPL
 ]
-#{
-	show raw: set text(0.8em)
-	slide(title: [Haskell Syntax], side-by-side(
+
+== Haskell Syntax
+
+- Parentheses are used for grouping expressions together, not for calling functions
+	- Python: `function1(arg1, function2(arg2), arg3)`
+	- Haskell: `function1 arg1 (function2 arg2) arg3`
+- Everything is an expression
+- Run ```sh stack ghci``` to play around in a REPL
+
+#[#show raw: set text(0.8em)
+
+	== Haskell Syntax
+
+	#side-by-side(
 		[
 			```hs
 			-- Comments start with two hyphens
@@ -233,8 +260,11 @@
 					y = 2
 			```
 		],
-	))
-	slide(title: [Haskell Syntax], side-by-side(
+	)
+
+	== Haskell Syntax
+
+	#side-by-side(
 		[
 			```hs
 			double :: Int -> Int
@@ -263,23 +293,27 @@
 			if3 n  = n + 1
 			```
 		],
-	))
-}
+	)
+]
 
-#slide(title: [Side Effects and Purity])[
-	- Side effects are any changes to state outside of the function. For example:
-		- Modifying global variables
-		- Modifying an array that was passed into the function
-		- Printing to console
-		- Making network requests
-	- Pure functions have no side effects and always return the same output for the same input
-]
-#slide(title: [Side Effects and Purity])[
-	- Pure functions are a lot easier to reason about due to *referential transparency*
-		- This is the property that you can replace a function call with its output without changing the behaviour of the program
-		- More generally, you can replace any expression with another expression that evaluates to the same value
-]
-#slide(title: [Side Effects and Purity], side-by-side(
+== Side Effects and Purity
+
+- Side effects are any changes to state outside of the function. For example:
+	- Modifying global variables
+	- Modifying an array that was passed into the function
+	- Printing to console
+	- Making network requests
+- Pure functions have no side effects and always return the same output for the same input
+
+== Side Effects and Purity
+
+- Pure functions are a lot easier to reason about due to *referential transparency*
+	- This is the property that you can replace a function call with its output without changing the behaviour of the program
+	- More generally, you can replace any expression with another expression that evaluates to the same value
+
+== Side Effects and Purity
+
+#side-by-side(
 	[
 		```py
 		def add_one(x: int) -> int:
@@ -303,18 +337,20 @@
 			counter += 1
 		```
 	],
-))
+)
 
 #task[```sh stack test --test-arguments 1```][- `src/Part1.hs`]
 
-#slide(title: [Higher-Order Functions])[
-	- In many languages such as Haskell, Python, and JavaScript, functions are first-class, meaning that they are can be treated like any other value
-		- You can assign a function to a variable, use a function as an argument to another function, return a function from a function…
-	- Higher-order functions are functions that either accept a function as a parameter or return a function
-]
+== Higher-Order Functions
 
-#slide(title: [Higher-Order Functions])[
-	#set text(0.95em)
+- In many languages such as Haskell, Python, and JavaScript, functions are first-class, meaning that they are can be treated like any other value
+	- You can assign a function to a variable, use a function as an argument to another function, return a function from a function…
+- Higher-order functions are functions that either accept a function as a parameter or return a function
+
+== Higher-Order Functions
+#fix-font-size
+
+#[#set text(0.95em)
 	- Functions can be composed together with ```hs .``` (like $compose$ in maths)
 		- $(f compose g)(x) = f(g(x))$
 		- ```hs (f . g) x = f (g x)```
@@ -323,67 +359,71 @@
 		- A function that takes e.g. 2 parameters actually takes in a single parameter and returns a new function that takes the second parameter
 		- Helpful for reusing functions
 ]
-#slide(title: [Higher-Order Functions])[
-	#show raw: set text(0.8em)
-	#grid(
-		columns: 2,
-		gutter: 5em,
-		[
-			```hs
-			add :: Int -> Int -> Int
-			add x y = x + y
 
-			five :: Int
-			five = add 2 3
+== Higher-Order Functions
 
-			addOne :: Int -> Int
-			addOne = add 1
+#{show raw: set text(0.8em)
+grid(
+	columns: 2,
+	gutter: 5em,
+	[
+		```hs
+		add :: Int -> Int -> Int
+		add x y = x + y
 
-			three :: Int
-			three = addOne 2
+		five :: Int
+		five = add 2 3
 
-			```
-		],
-		[
-			```py
-			def add(x: int) -> Callable[[int], int]:
-				return lambda y: x + y
+		addOne :: Int -> Int
+		addOne = add 1
 
+		three :: Int
+		three = addOne 2
 
-			five = add(2)(3)
-
-
-			add_one = add(1)
+		```
+	],
+	[
+		```py
+		def add(x: int) -> Callable[[int], int]:
+			return lambda y: x + y
 
 
-			three = add_one(2)
-			```
-		],
-	)
+		five = add(2)(3)
+
+
+		add_one = add(1)
+
+
+		three = add_one(2)
+		```
+	],
+)}
+
+== Higher-Order Functions
+
+#[#show raw: set text(0.75em)
+```hs
+-- Applies a function to all the elements of a list and
+-- returns the results in a new list
+map :: (a -> b) -> [a] -> [b]
+-- Only keeps elements in the list satisfying a predicate
+filter :: (a -> Bool) -> [a] -> [a]
+-- Applies a function to each element of the list (from right to left)
+-- and an accumulator value and returns the final accumulator value
+-- AKA reduceRight in JavaScript
+foldr :: (a -> b -> b) -> b -> [a] -> b
+-- Same as foldr but left to right
+-- AKA reduce in JavaScript
+foldl :: (b -> a -> b) -> b -> [a] -> b
+-- Anonymous functions in Haskell: \arg1 arg2 -> arg1 + arg2
+map    (* 2)                  [1, 2, 3, 4, 5, 6] -- [2, 4, 6, 8, 10, 12]
+filter (\x -> x `mod` 3 == 0) [1, 2, 3, 4, 5, 6] -- [3, 6]
+```
 ]
 
-#slide(title: [Higher-Order Functions])[
-	#set text(0.75em)
-	```hs
-	-- Applies a function to all the elements of a list and
-	-- returns the results in a new list
-	map :: (a -> b) -> [a] -> [b]
-	-- Only keeps elements in the list satisfying a predicate
-	filter :: (a -> Bool) -> [a] -> [a]
-	-- Applies a function to each element of the list (from right to left)
-	-- and an accumulator value and returns the final accumulator value
-	-- AKA reduceRight in JavaScript
-	foldr :: (a -> b -> b) -> b -> [a] -> b
-	-- Same as foldr but left to right
-	-- AKA reduce in JavaScript
-	foldl :: (b -> a -> b) -> b -> [a] -> b
-	-- Anonymous functions in Haskell: \arg1 arg2 -> arg1 + arg2
-	map    (* 2)                  [1, 2, 3, 4, 5, 6] -- [2, 4, 6, 8, 10, 12]
-	filter (\x -> x `mod` 3 == 0) [1, 2, 3, 4, 5, 6] -- [3, 6]
-	```
-]
+== Higher-Order Functions
 
-#slide(title: [Higher-Order Functions], grid(
+#grid(
 	columns: 2,
 	gutter: 1em,
 	[
@@ -409,124 +449,135 @@
 			[`1`], [`14 + 1 = 15`],
 		)
 	},
-))
+)
 
-#slide(title: [Lists])[
-	#set text(0.8em)
-	- Lists in Haskell are linked lists
-	```hs
-	data [a] = [] | a : [a]
-	-- the : is an operator that can be used to
-	-- create a list given the head and tail
-	```
-	```hs
-	-- you can think of it like this:
-	data List a = Empty | Cons a (List a)
-	```
-	- ```hs [1, 2, 3]``` is just syntax sugar for ```hs 1 : 2 : 3 : []```
-	- ```hs [1..4] == [1, 2, 3, 4]```
-	- ```hs [1, 3..9] == [1, 3, 5, 7, 9]```
-	- ```hs [1..]``` is an infinite list ```hs [1, 2, 3, ...]```
+== Lists
+#fix-font-size
+
+#[#set text(0.8em)
+- Lists in Haskell are linked lists
+```hs
+data [a] = [] | a : [a]
+-- the : is an operator that can be used to
+-- create a list given the head and tail
+```
+```hs
+-- you can think of it like this:
+data List a = Empty | Cons a (List a)
+```
+- ```hs [1, 2, 3]``` is just syntax sugar for ```hs 1 : 2 : 3 : []```
+- ```hs [1..4] == [1, 2, 3, 4]```
+- ```hs [1, 3..9] == [1, 3, 5, 7, 9]```
+- ```hs [1..]``` is an infinite list ```hs [1, 2, 3, ...]```
 ]
 
 #task[```sh stack test --test-arguments 2```][- `src/Part2.hs`]
 
-#{
-	show raw: set text(0.75em)
-	slide(title: [Data Types], side-by-side(
-		[
-			```hs
-			data PairOfInts = PairOfInts Int Int
-			--   ^^^^^^^^^^   ^^^^^^^^^^
-			--   type         constructor
-			x :: PairOfInts
-			x = PairOfInts 1 2
+#[#show raw: set text(0.75em)
 
-			data Pair a = Pair a a
-			-- 'a' is a type variable
-			y :: Pair String
-			y = Pair "abc" "def"
-			```
-		],
-		[
-			```hs
-			getFirst :: Pair a -> a
-			getFirst (Pair x _) = _
+== Data Types
 
-			getSecond :: Pair a -> a
-			getSecond pair = case pair of
-				Pair _ y -> y
-			```
-		],
-	))
-	slide(title: [Data Types], grid(
-		columns: 2,
-		gutter: 1em,
-		[
-			```hs
-			data Person = Person
-				{ name :: String
-				, age :: Int
-				}
+#side-by-side(
+	[
+		```hs
+		data PairOfInts = PairOfInts Int Int
+		--   ^^^^^^^^^^   ^^^^^^^^^^
+		--   type         constructor
+		x :: PairOfInts
+		x = PairOfInts 1 2
 
-			person1 :: Person
-			person1 = Person "Lauren" 19
+		data Pair a = Pair a a
+		-- 'a' is a type variable
+		y :: Pair String
+		y = Pair "abc" "def"
+		```
+	],
+	[
+		```hs
+		getFirst :: Pair a -> a
+		getFirst (Pair x _) = _
 
-			person2 :: Person
-			person2 = Person
-				{ age = 19
-				, name = "Lauren"
-				}
-			```
-		],
-		[
-			```hs
-			getName1, getName2, getName3 :: Person -> String
-			getName1 (Person n _) = n
-			getName2 Person{name = n} = n
-			getName3 person = name person
-			```
-		],
-	))
-	slide(title: [Data Types], side-by-side(
-		[
-			```hs
-			data Suit = Hearts
-			          | Diamonds
-			          | Clubs
-			          | Spades
+		getSecond :: Pair a -> a
+		getSecond pair = case pair of
+			Pair _ y -> y
+		```
+	],
+)
 
-			suit :: Suit
-			suit = Hearts
+== Data Types
 
-			message :: String
-			message = case suit of
-				Hearts -> "it’s hearts!"
-				_      -> "something else"
-			```
-		],
-		raw(lang: "hs", "displaySuit :: Suit -> String
+#grid(
+	columns: 2,
+	gutter: 1em,
+	[
+		```hs
+		data Person = Person
+			{ name :: String
+			, age :: Int
+			}
+
+		person1 :: Person
+		person1 = Person "Lauren" 19
+
+		person2 :: Person
+		person2 = Person
+			{ age = 19
+			, name = "Lauren"
+			}
+		```
+	],
+	[
+		```hs
+		getName1, getName2, getName3 :: Person -> String
+		getName1 (Person n _) = n
+		getName2 Person{name = n} = n
+		getName3 person = name person
+		```
+	],
+)
+
+== Data Types
+
+#side-by-side(
+	[
+		```hs
+		data Suit = Hearts
+							| Diamonds
+							| Clubs
+							| Spades
+
+		suit :: Suit
+		suit = Hearts
+
+		message :: String
+		message = case suit of
+			Hearts -> "it’s hearts!"
+			_      -> "something else"
+		```
+	],
+	raw(lang: "hs", "displaySuit :: Suit -> String
 displaySuit Hearts   = \"" + emoji.suit.heart + "\"
 displaySuit Diamonds = \"" + emoji.suit.diamond + "\"
 displaySuit Clubs    = \"" + emoji.suit.club + "\"
 displaySuit Spades   = \"" + emoji.suit.spade + "\""
-		),
-	))
-}
-
-#slide(title: [Maybe])[
-	```hs
-	data Maybe a = Nothing | Just a
-	```
-	- Used instead of `null`/`nil`/`None`
-	- Example: getting a value for a key in a dictionary/hash map
-		```hs
-		lookup :: k -> Map k v -> Maybe v
-		```
-	- Nice way to handle functions that may fail rather than having to catch exceptions
+	),
+)
 ]
 
-// #slide(title: [Non-Empty Lists])[
+== Maybe
+
+```hs
+data Maybe a = Nothing | Just a
+```
+- Used instead of `null`/`nil`/`None`
+- Example: getting a value for a key in a dictionary/hash map
+	```hs
+	lookup :: k -> Map k v -> Maybe v
+	```
+- Nice way to handle functions that may fail rather than having to catch exceptions
+
+// == Non-Empty Lists]
+//
 // 	```hs
 // 	data NonEmpty a = a :| [a]
 // 	```
@@ -538,33 +589,32 @@ displaySuit Spades   = \"" + emoji.suit.spade + "\""
 // 	tail :: NonEmpty a -> [a] -- all except first
 // 	init :: NonEmpty a -> [a] -- all except last
 // 	```
-// ]
 
-#slide(title: [Recursive Data Types])[
-	```hs
-	data BinaryTree a
-		= Leaf
-		| Node (BinaryTree a) a (BinaryTree a)
-	```
-	```hs
-	data Expression
-		= Integer Int
-		| Add Expression Expression
-		| Subtract Expression Expression
-		| Multiply Expression Expression
-		| Power Expression Expression
-	```
-]
+== Recursive Data Types
+
+```hs
+data BinaryTree a
+	= Leaf
+	| Node (BinaryTree a) a (BinaryTree a)
+```
+```hs
+data Expression
+	= Integer Int
+	| Add Expression Expression
+	| Subtract Expression Expression
+	| Multiply Expression Expression
+	| Power Expression Expression
+```
 
 #task[```sh stack test --test-arguments 3```][
 	- `src/Part3.hs`
 	- Run ```sh stack run``` to run the calculator
 ]
 
-#slide(title: [Learning More + Resources])[
-	- Haskell Wiki: `wiki.haskell.org`
-	- Hoogle (Search engine for Haskell functions): `hoogle.haskell.org`
-	- Learn You a Haskell for Great Good (tutorial): `learnyouahaskell.github.io`
+== Learning More + Resources
 
-	If you liked this, consider taking FIT2102 Programming paradigms!
-]
+- Haskell Wiki: `wiki.haskell.org`
+- Hoogle (Search engine for Haskell functions): `hoogle.haskell.org`
+- Learn You a Haskell for Great Good (tutorial): `learnyouahaskell.github.io`
+
+If you liked this, consider taking FIT2102 Programming paradigms!
