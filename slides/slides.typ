@@ -45,8 +45,7 @@
 	[
 		=== Using CodeSandbox (online)
 
-		- Fork #link("https://codesandbox.io/p/devbox/mac-intro-to-haskell-workshop-g3ynvw")[`codesandbox.io/p/devbox/mac-intro-to-haskell-workshop-g3ynvw`]
-			- This is also linked in the GitHub repo
+		- Fork the CodeSandbox linked in the GitHub repo
 		- Run ```sh stack test``` in a a terminal (there will be test failures)
 	],
 )
